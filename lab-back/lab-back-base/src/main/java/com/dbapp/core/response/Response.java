@@ -40,7 +40,7 @@ public class Response {
             //Boolean字段如果为null,输出为false,而非null
 			SerializerFeature.WriteNullBooleanAsFalse,
             //不进行压缩,去掉$ref符号
-			SerializerFeature.DisableCircularReferenceDetect
+			SerializerFeature.DisableCircularReferenceDetect,
 	};
 
 	int code;

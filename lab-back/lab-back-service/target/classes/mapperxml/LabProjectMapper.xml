@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dbapp.core.mapper.LabProjectMapper">
+  <resultMap id="BaseResultMap" type="com.dbapp.core.model.pojo.LabProject">
+    <!--@mbg.generated-->
+    <!--@Table lab_project-->
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="difficulty" jdbcType="INTEGER" property="difficulty" />
+    <result column="time" jdbcType="INTEGER" property="time" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="href" jdbcType="VARCHAR" property="href" />
+    <result column="open" jdbcType="TINYINT" property="open" />
+    <result column="created" jdbcType="TIMESTAMP" property="created" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    id, title, difficulty, `time`, description, href, `open`, created
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    <!--@mbg.generated-->
+    select 
+    <include refid="Base_Column_List" />
+    from lab_project
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    <!--@mbg.generated-->
+    delete from lab_project
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.dbapp.core.model.pojo.LabProject" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into lab_project (title, difficulty, `time`, 
+      description, href, `open`, 
+      created)
+    values (#{title,jdbcType=VARCHAR}, #{difficulty,jdbcType=INTEGER}, #{time,jdbcType=INTEGER}, 
+      #{description,jdbcType=VARCHAR}, #{href,jdbcType=VARCHAR}, #{open,jdbcType=TINYINT}, 
+      #{created,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.dbapp.core.model.pojo.LabProject" useGeneratedKeys="true">
+    <!--@mbg.generated-->
+    insert into lab_project
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        title,
+      </if>
+      <if test="difficulty != null">
+        difficulty,
+      </if>
+      <if test="time != null">
+        `time`,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="href != null">
+        href,
+      </if>
+      <if test="open != null">
+        `open`,
+      </if>
+      <if test="created != null">
+        created,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null">
+        #{difficulty,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null">
+        #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="open != null">
+        #{open,jdbcType=TINYINT},
+      </if>
+      <if test="created != null">
+        #{created,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.dbapp.core.model.pojo.LabProject">
+    <!--@mbg.generated-->
+    update lab_project
+    <set>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="difficulty != null">
+        difficulty = #{difficulty,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        `time` = #{time,jdbcType=INTEGER},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null">
+        href = #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="open != null">
+        `open` = #{open,jdbcType=TINYINT},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.dbapp.core.model.pojo.LabProject">
+    <!--@mbg.generated-->
+    update lab_project
+    set title = #{title,jdbcType=VARCHAR},
+      difficulty = #{difficulty,jdbcType=INTEGER},
+      `time` = #{time,jdbcType=INTEGER},
+      description = #{description,jdbcType=VARCHAR},
+      href = #{href,jdbcType=VARCHAR},
+      `open` = #{open,jdbcType=TINYINT},
+      created = #{created,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="listAllProjects" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from lab_project
+  </select>
+</mapper>

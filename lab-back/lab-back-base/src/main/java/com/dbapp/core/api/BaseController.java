@@ -1,76 +1,39 @@
 package com.dbapp.core.api;
 
-import cn.hutool.core.lang.Dict;
+import cn.hutool.core.io.FileUtil;
+import com.dbapp.core.model.co.LabProjectCo;
+import com.dbapp.core.model.pojo.LabProject;
+import com.dbapp.core.model.vo.LabProjectVo;
 import com.dbapp.core.response.Response;
+import com.dbapp.core.mapper.LabProjectMapper;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
+import javax.annotation.Resource;
+import java.io.File;
 import java.util.List;
+import java.util.stream.Collectors;
 
+/**
+ * @author dobb
+ */
 @RestController
 public class BaseController {
 
+    @Resource
+    LabProjectMapper labProjectMapper;
 
     @RequestMapping(value = "/lab",method = RequestMethod.GET)
     public Response getLabList(){
-        List<Dict> dicts = new ArrayList<>(9);
-        dicts.add(
-            Dict.create().set("title","微服务入门：任务管理器")
-                .set("difficulty", "简单")
-                .set("time", "15分钟")
-                .set("description", "使用 Spring Cloud Alibaba 实现一个简易的任务管理器；学习和体验微服务开发。")
-                .set("href", "https://www.baidu.com")
-                .set("open", true)
-        );
+        List<LabProject> labProjects = labProjectMapper.listAllProjects();
+        List<LabProjectVo> labProjectVos = labProjects.stream().map(LabProjectCo.INSTANCE::toLabProjectVo).collect(Collectors.toList());
+        return Response.success(labProjectVos);
+    }
 
-        dicts.add(
-                Dict.create().set("title","微服务入门：任务管理器")
-                        .set("difficulty", "简单")
-                        .set("time", "15分钟")
-                        .set("description", "使用 Spring Cloud Alibaba 实现一个简易的任务管理器；学习和体验微服务开发。")
-                        .set("href", "https://www.baidu.com")
-                        .set("open", true)
-        );
-
-        dicts.add(
-                Dict.create().set("title","微服务入门：任务管理器")
-                        .set("difficulty", "简单")
-                        .set("time", "15分钟")
-                        .set("description", "使用 Spring Cloud Alibaba 实现一个简易的任务管理器；学习和体验微服务开发。")
-                        .set("href", "https://www.baidu.com")
-                        .set("open", true)
-        );
-
-        dicts.add(
-                Dict.create().set("title","微服务入门：任务管理器")
-                        .set("difficulty", "简单")
-                        .set("time", "15分钟")
-                        .set("description", "使用 Spring Cloud Alibaba 实现一个简易的任务管理器；学习和体验微服务开发。")
-                        .set("href", "https://www.baidu.com")
-                        .set("open", true)
-        );
-
-        dicts.add(
-                Dict.create().set("title","微服务入门：任务管理器")
-                        .set("difficulty", "简单")
-                        .set("time", "15分钟")
-                        .set("description", "使用 Spring Cloud Alibaba 实现一个简易的任务管理器；学习和体验微服务开发。")
-                        .set("href", "")
-                        .set("open", false)
-        );
-
-        dicts.add(
-                Dict.create().set("title","微服务入门：任务管理器")
-                        .set("difficulty", "简单")
-                        .set("time", "15分钟")
-                        .set("description", "使用 Spring Cloud Alibaba 实现一个简易的任务管理器；学习和体验微服务开发。")
-                        .set("href", "")
-                        .set("open", false)
-        );
-
-
-        return Response.success(dicts);
+    @RequestMapping(value = "/file", method = RequestMethod.GET)
+    public Response file(){
+        File file = new File("/Users/dobb/Workspace/lsjy/hands-on-lab/lab-back/lab-back-base/src/main/java/com/dbapp/core/api/BaseController.java");
+        return Response.success(FileUtil.readUtf8String(file));
     }
 }
